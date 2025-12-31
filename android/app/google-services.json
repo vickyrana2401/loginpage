@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "41209262974",
+    "project_id": "loginp-14179",
+    "storage_bucket": "loginp-14179.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41209262974:android:190ae169dbb300435fb92f",
+        "android_client_info": {
+          "package_name": "com.example.loginproduction"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdkq0lN-vZh-PrMXJ6QXbaEI2PseYI7JQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,9 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:loginproduction/pages/appbackground.dart';
-import 'package:loginproduction/pages/loginscreen.dart';
-import 'package:loginproduction/pages/header.dart';
+import 'package:loginproduction/function/AppBackground.dart';
+import 'package:loginproduction/function/LoginScreen.dart';
+import 'package:loginproduction/function/header.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+void main()  async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
  class MyApp extends StatefulWidget {
@@ -17,6 +22,7 @@ void main() {
    @override
    Widget build(BuildContext context) {
      return MaterialApp(
+       debugShowCheckedModeBanner:false,
          home:Scaffold(
        backgroundColor: Colors.white,
        body:AppBackground(
@@ -25,6 +31,18 @@ void main() {
            children: [
 
            // Decorative circle
+             Positioned(
+               bottom: -80,
+               left: -60,
+               child: Container(
+                 width: 180,
+                 height: 180,
+                 decoration: BoxDecoration(
+                   color: Colors.white.withValues(alpha: 0.08),
+                   shape: BoxShape.circle,
+                 ),
+               ),
+             ),
            Positioned(
            top: -80,
            right: -60,
@@ -47,7 +65,7 @@ void main() {
                    borderRadius: BorderRadius.circular(20),
                    boxShadow: [
                      BoxShadow(
-                       color: Colors.black.withOpacity(0.2),
+                       color: Colors.black.withValues(alpha:0.2),
                        blurRadius: 20,
                        offset: const Offset(0, 10),
                      ),
@@ -69,18 +87,7 @@ void main() {
 
                 )
          ),
-             Positioned(
-               bottom: -80,
-               left: -60,
-               child: Container(
-                 width: 180,
-                 height: 180,
-                 decoration: BoxDecoration(
-                   color: Colors.white.withValues(alpha: 0.08),
-                   shape: BoxShape.circle,
-                 ),
-               ),
-             ),
+
        ])
        )
        )

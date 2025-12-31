@@ -1,4 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loginproduction/Pages/LoginSuccessful.dart';
+
+
+
+void showtoast(String message){
+  Fluttertoast.showToast(
+    msg:message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor:Colors.black,
+    textColor: Colors.white,
+    fontSize: 14,
+  );
+}
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,6 +34,30 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
+  Future<bool> login() async{
+    try{
+      await
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+      email:emailController.text.trim(),
+      password: passwordController.text.trim()
+    );
+      showtoast("Login Successful");
+      return true;
+    }
+    catch(e){
+      if(e is FirebaseAuthException) {
+        showtoast(e.message ?? "Login faild");
+        return false;
+      }
+      else{
+        showtoast("Something went wrong");
+        return false;
+      }
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return  Column(
@@ -27,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               //Email
               TextField(
+                controller: emailController,
                 keyboardType:TextInputType.emailAddress,
                 decoration:InputDecoration(
                     labelText: "Email",
@@ -39,6 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               TextField(
+                controller: passwordController,
                 obscureText:isPasswordHidden,
                 decoration:InputDecoration(
                     labelText: "Password",
@@ -65,7 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
-                    onPressed: isLoading ? null :(){} ,
+                    onPressed: isLoading ? null :() async {
+                      bool success= await login();
+                      if( success){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=> LoginSuccessful())
+                        );
+                      }
+
+                    } ,
                     child:isLoading
                     ? const CircularProgressIndicator(color: Colors.white) :
                         const Text(
