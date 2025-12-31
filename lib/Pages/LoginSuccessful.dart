@@ -1,16 +1,60 @@
 import 'package:flutter/material.dart';
 
+import '../function/AppBackground.dart';
+
 class LoginSuccessful extends StatelessWidget {
   const LoginSuccessful({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FB),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+        body:AppBackground(
+            child:SafeArea(
+                child: Stack(
+                  children: [
+
+                  // Decorative circle
+                  Positioned(
+                  bottom: -80,
+                  left: -60,
+                  child: Container(
+                    width: 180,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.08),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: -80,
+                  right: -60,
+                  child: Container(
+                    width: 180,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.08),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+                Center(
+                    child:SingleChildScrollView(
+                      padding: const EdgeInsets.all(24),
+                      child: Container(
+                        padding: const EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha:0.2),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -24,7 +68,7 @@ class LoginSuccessful extends StatelessWidget {
                   ),
                   child: const Icon(
                     Icons.check_circle,
-                    color: Colors.green,
+                    color: Colors.blueGrey,
                     size: 80,
                   ),
                 ),
@@ -85,6 +129,10 @@ class LoginSuccessful extends StatelessWidget {
           ),
         ),
       ),
+
+            ])
+            )
+        )
     );
   }
 }
