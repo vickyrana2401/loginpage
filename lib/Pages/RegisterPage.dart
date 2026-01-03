@@ -11,6 +11,20 @@ class Registerpage extends StatelessWidget {
         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Container(
+                            height:120,
+                            width:120,
+                            decoration: BoxDecoration(
+                              color:Colors.black45.withValues(alpha:0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.person_rounded,
+                              color:Colors.blueGrey,
+                              size:80,
+                            ),
+                          ),
+                          SizedBox(height: 12),
                           TextField(
                             keyboardType:TextInputType.text,
                             decoration: InputDecoration(
