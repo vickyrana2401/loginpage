@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loginproduction/function/AppBackground.dart';
 import 'package:loginproduction/function/LoginScreen.dart';
 import 'package:loginproduction/function/header.dart';
-import 'firebase_options.dart';
+
 
 
 void main()  async{
