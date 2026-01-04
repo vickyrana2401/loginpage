@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:loginproduction/function/AppBackground.dart";
 
 class Registerpage extends StatelessWidget {
-  const Registerpage.RegisterPage({super.key});
+  const Registerpage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType:TextInputType.emailAddress,
                 decoration:InputDecoration(
                     labelText: "Email",
-                    hintText: "User@email.com",
+                    hintText: "user@email.com",
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context)=> Registerpage.RegisterPage())
+                          MaterialPageRoute(builder: (context)=> Registerpage())
                       );
 
                     },
