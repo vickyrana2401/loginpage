@@ -55,17 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
         return false;
       }
     }
-
   }
-
-
   @override
   Widget build(BuildContext context) {
     return  Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-
               //Email
               TextField(
                 controller: emailController,
@@ -135,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context)=> Registerpage())
+                          MaterialPageRoute(builder: (context)=> RegisterPage())
                       );
 
                     },
