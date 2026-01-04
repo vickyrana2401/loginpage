@@ -1,18 +1,10 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:loginproduction/function/AppBackground.dart";
-import 'package:fluttertoast/fluttertoast.dart';
 
-void showtoast(String message){
-  Fluttertoast.showToast(
-    msg:message,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor:Colors.black,
-    textColor: Colors.white,
-    fontSize: 14,
-  );
-}
+import "../function/AppToast.dart";
+
+
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
   @override
@@ -40,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
         password: passwordController.text.trim(),
       );
       setState(() => isLoading=false );
-      showtoast("Login Successful");
+      AppToast.show("Register Successful");
     }
     on FirebaseAuthException catch (e){
       setState(()=> isLoading= false);
@@ -53,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
       }else if(e.code =='invalid-email'){
         message = "invalid email address";
       }
-      showtoast(message);
+      AppToast.show(message);
 
     }
   }

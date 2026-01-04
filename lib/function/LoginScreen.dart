@@ -1,21 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loginproduction/Pages/LoginSuccessful.dart';
 import 'package:loginproduction/Pages/RegisterPage.dart';
 
+import 'AppToast.dart';
 
-
-void showtoast(String message){
-  Fluttertoast.showToast(
-    msg:message,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.BOTTOM,
-    backgroundColor:Colors.black,
-    textColor: Colors.white,
-    fontSize: 14,
-  );
-}
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,16 +31,16 @@ class _LoginScreenState extends State<LoginScreen> {
       email:emailController.text.trim(),
       password: passwordController.text.trim()
     );
-      showtoast("Login Successful");
+      AppToast.show("Login Successful");
       return true;
     }
     catch(e){
       if(e is FirebaseAuthException) {
-        showtoast(e.message ?? "Login faild");
+        AppToast.show(e.message ?? "Login faild");
         return false;
       }
       else{
-        showtoast("Something went wrong");
+        AppToast.show("Something went wrong");
         return false;
       }
     }
