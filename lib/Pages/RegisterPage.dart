@@ -1,7 +1,6 @@
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:loginproduction/function/AppBackground.dart";
-
 import "../function/AppToast.dart";
 
 
@@ -22,10 +21,10 @@ class _RegisterPageState extends State<RegisterPage> {
   bool isLoading=false;
   bool isConfirmPassword=true;
 
-  Future <void> registerUser() async{
+Future <bool> registerUser() async{
 
     try{
-      if (!_formKey.currentState!.validate()) return;
+      if (!_formKey.currentState!.validate()) return false;
       setState(()=> isLoading=true);
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email:emailController.text.trim(),
@@ -33,10 +32,10 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       setState(() => isLoading=false );
       AppToast.show("Register Successful");
+      return true;
     }
     on FirebaseAuthException catch (e){
       setState(()=> isLoading= false);
-
       String message = "Registration failed";
       if (e.code =='email-already-in-use'){
         message = "Email already  register";
@@ -46,6 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
         message = "invalid email address";
       }
       AppToast.show(message);
+      return false;
 
     }
   }
@@ -150,7 +150,15 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height:20),
               TextButton(
-                  onPressed: isLoading ? null : registerUser,
+                  onPressed: isLoading ? null :() async{
+                    bool success= await registerUser();
+                    if (!context.mounted) return;
+                    if(success){
+                      Navigator.pop(context, "success");
+
+                    }
+
+                  },
                   child: isLoading ?
                       const SizedBox(
                         width: 22,
@@ -160,7 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           strokeWidth: 2,
                         ),
                       )
-                      : const Text("Register"),
+                  : const Text("Register"),
               )
             ]
         ),)

@@ -94,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ElevatedButton(
                     onPressed: isLoading ? null :() async {
                       bool success= await login();
+                      if (!context.mounted) return;
                       if( success){
                         Navigator.push(
                           context,
