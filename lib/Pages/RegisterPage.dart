@@ -1,24 +1,70 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:loginproduction/function/AppBackground.dart";
+import 'package:fluttertoast/fluttertoast.dart';
 
+void showtoast(String message){
+  Fluttertoast.showToast(
+    msg:message,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor:Colors.black,
+    textColor: Colors.white,
+    fontSize: 14,
+  );
+}
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+  @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 
 
 class _RegisterPageState extends State<RegisterPage> {
+  final _formKey =GlobalKey<FormState>();
   final TextEditingController emailController=TextEditingController();
   final TextEditingController passwordController=TextEditingController();
+  final TextEditingController confirmPasswordController=TextEditingController();
   bool isPasswordHidden=true;
   bool isLoading=false;
+  bool isConfirmPassword=true;
+
+  Future <void> registerUser() async{
+
+    try{
+      if (!_formKey.currentState!.validate()) return;
+      setState(()=> isLoading=true);
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email:emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      setState(() => isLoading=false );
+      showtoast("Login Successful");
+    }
+    on FirebaseAuthException catch (e){
+      setState(()=> isLoading= false);
+
+      String message = "Registration failed";
+      if (e.code =='email-already-in-use'){
+        message = "Email already  register";
+      }else if(e.code == 'weak-password'){
+        message ="Password too weak";
+      }else if(e.code =='invalid-email'){
+        message = "invalid email address";
+      }
+      showtoast(message);
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AppBackground(
-        child: Column(
+        child: Form(
+          key: _formKey,
+          child:Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
@@ -36,7 +82,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               SizedBox(height: 12),
               TextField(
-                controller:null,
                 keyboardType:TextInputType.text,
                 decoration: InputDecoration(
                     labelText:"User Name",
@@ -48,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               const SizedBox(height:20),
-              TextField(
+              TextFormField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
@@ -58,9 +103,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     borderRadius:BorderRadius.circular(12),
                   ),
                 ),
+                validator: (value) => value!.contains("@") ? null : "Enter valid email",
               ),
               const SizedBox(height:20),
-              TextField(
+              TextFormField(
                 controller: passwordController,
                 obscureText:isPasswordHidden,
                 keyboardType: TextInputType.visiblePassword,
@@ -82,10 +128,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                   )
                 ),
+                validator: (value) => value!.length < 6 ? "Min 6 characters" : null,
               ),
               const SizedBox(height:20),
-              TextField(
-                obscureText: isPasswordHidden,
+              TextFormField(
+                controller: confirmPasswordController,
+                obscureText: isConfirmPassword,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
                   labelText:"Confirm Password",
@@ -104,11 +152,26 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                   )
                 ),
+                validator:(value) =>
+                    value != passwordController.text
+                  ? "Password do not match" : null,
               ),
               const SizedBox(height:20),
-              TextButton(onPressed:(){}, child: Text("Continue"))
+              TextButton(
+                  onPressed: isLoading ? null : registerUser,
+                  child: isLoading ?
+                      const SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                      : const Text("Register"),
+              )
             ]
-        ),
+        ),)
       )
     );
   }
