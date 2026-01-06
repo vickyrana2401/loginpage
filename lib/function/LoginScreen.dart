@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:loginproduction/Pages/LoginSuccessful.dart';
 import 'package:loginproduction/Pages/RegisterPage.dart';
@@ -14,8 +13,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref();
   final TextEditingController emailController=TextEditingController();
   final TextEditingController passwordController=TextEditingController();
   bool isPasswordHidden=true;
@@ -29,18 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   Future<bool> login() async{
     try{
-      UserCredential userCredential =
-      await _auth.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-      final uid = userCredential.user!.uid;
-
-      await _dbRef.child("users/$uid").update({
-        "email": emailController.text.trim(),
-        "online": true,
-        "lastLogin": ServerValue.timestamp,
-      });
+      await
+    FirebaseAuth.instance.signInWithEmailAndPassword(
+      email:emailController.text.trim(),
+      password: passwordController.text.trim()
+    );
+      AppToast.show("Login Successful");
       return true;
     }
     catch(e){

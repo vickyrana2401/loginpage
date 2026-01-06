@@ -1,4 +1,5 @@
 import "package:firebase_auth/firebase_auth.dart";
+import "package:firebase_database/firebase_database.dart";
 import "package:flutter/material.dart";
 import "package:loginproduction/function/AppBackground.dart";
 import "../function/AppToast.dart";
@@ -14,6 +15,9 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey =GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseReference _dbRef = FirebaseDatabase.instance.ref();
+  final TextEditingController usernameController=TextEditingController();
   final TextEditingController emailController=TextEditingController();
   final TextEditingController passwordController=TextEditingController();
   final TextEditingController confirmPasswordController=TextEditingController();
@@ -26,10 +30,19 @@ Future <bool> registerUser() async{
     try{
       if (!_formKey.currentState!.validate()) return false;
       setState(()=> isLoading=true);
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email:emailController.text.trim(),
+      UserCredential userCredential =
+      await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+      final uid = userCredential.user!.uid;
+
+      await _dbRef.child("users/$uid").update({
+        "username": usernameController,
+        "email": emailController.text.trim(),
+        "online": true,
+        "lastLogin": ServerValue.timestamp,
+      });
       setState(() => isLoading=false );
       AppToast.show("Register Successful");
       return true;
@@ -74,6 +87,7 @@ Future <bool> registerUser() async{
               ),
               SizedBox(height: 12),
               TextField(
+                controller:usernameController,
                 keyboardType:TextInputType.text,
                 decoration: InputDecoration(
                     labelText:"User Name",
