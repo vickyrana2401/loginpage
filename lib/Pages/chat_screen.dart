@@ -87,7 +87,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   snapshot.data!.snapshot.value as Map,
                 );
 
-                final messages = data.entries.toList();
+                final messages = data.entries.toList()
+                  ..sort((a, b) {
+                    final aTime = a.value["timestamp"] ?? 0;
+                    final bTime = b.value["timestamp"] ?? 0;
+                    return aTime.compareTo(bTime);
+                  });
+
 
                 return ListView.builder(
                   padding: const EdgeInsets.all(10),

@@ -21,7 +21,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Users"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blueAccent,
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
