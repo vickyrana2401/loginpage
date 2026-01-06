@@ -155,9 +155,7 @@ Future <bool> registerUser() async{
                     if (!context.mounted) return;
                     if(success){
                       Navigator.pop(context, "success");
-
                     }
-
                   },
                   child: isLoading ?
                       const SizedBox(
