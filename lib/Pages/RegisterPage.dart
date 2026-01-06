@@ -31,14 +31,14 @@ Future <bool> registerUser() async{
       if (!_formKey.currentState!.validate()) return false;
       setState(()=> isLoading=true);
       UserCredential userCredential =
-      await _auth.signInWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
       final uid = userCredential.user!.uid;
 
       await _dbRef.child("users/$uid").update({
-        "username": usernameController,
+        "username": usernameController.text.trim(),
         "email": emailController.text.trim(),
         "online": true,
         "lastLogin": ServerValue.timestamp,
@@ -148,12 +148,12 @@ Future <bool> registerUser() async{
                   ),
                   suffixIcon:IconButton(
                     icon: Icon(
-                      isPasswordHidden
+                      isConfirmPassword
                           ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                     ),
                     onPressed:(){
                       setState(() {
-                        isPasswordHidden = !isPasswordHidden;
+                        isConfirmPassword = !isConfirmPassword;
                       });
                     },
                   )

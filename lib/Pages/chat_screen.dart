@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.receiverName),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blue,
       ),
       body: Column(
         children: [
@@ -111,7 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         decoration: BoxDecoration(
                           color: isMe
-                              ? Colors.green.shade400
+                              ? Colors.blue.shade400
                               : Colors.grey.shade300,
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -149,7 +149,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 const SizedBox(width: 6),
                 CircleAvatar(
-                  backgroundColor: Colors.green,
+                  backgroundColor: Colors.blue,
                   child: IconButton(
                     icon: const Icon(Icons.send, color: Colors.white),
                     onPressed: sendMessage,

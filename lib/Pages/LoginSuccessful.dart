@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loginproduction/Pages/user_list_screen.dart';
 import '../function/AppBackground.dart';
 
 
@@ -60,7 +61,14 @@ class LoginSuccessful extends StatelessWidget {
                   width: double.infinity,
                   height: 52,
                   child: ElevatedButton(
-                    onPressed: () {              },
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => UsersListScreen()
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
                       shape: RoundedRectangleBorder(
