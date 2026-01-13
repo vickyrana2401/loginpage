@@ -65,7 +65,20 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text(widget.receiverName),
         backgroundColor: Colors.blue,
       ),
-      body: Column(
+      body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF0F2027),
+                Color(0xFF203A42),
+                Color(0xFF2C5364),
+              ],
+            ),
+          ),
+          child:SafeArea(
+            child:Column(
         children: [
           /// 🔥 MESSAGES LIST
           Expanded(
@@ -166,6 +179,8 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
+          )
+      )
     );
   }
 }

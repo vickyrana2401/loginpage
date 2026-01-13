@@ -38,7 +38,20 @@ class _UsersListScreenState extends State<UsersListScreen> {
           )
         ],
       ),
-      body: StreamBuilder<DatabaseEvent>(
+      body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF0F2027),
+                Color(0xFF203A42),
+                Color(0xFF2C5364),
+              ],
+            ),
+          ),
+          child:SafeArea(
+            child: StreamBuilder<DatabaseEvent>(
         stream: usersRef.onValue,
         builder: (context, snapshot) {
           if (!snapshot.hasData ||
@@ -80,6 +93,9 @@ class _UsersListScreenState extends State<UsersListScreen> {
                 ),
                 title: Text(
                   userData["username"] ?? "No Name",
+                  style: TextStyle(
+                    color:Colors.white
+                  ),
                 ),
                 subtitle: Text(
                   userData["email"] ?? "",
@@ -109,6 +125,8 @@ class _UsersListScreenState extends State<UsersListScreen> {
           );
         },
       ),
+      )
+      )
     );
   }
 }

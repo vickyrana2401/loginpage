@@ -3,12 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:loginproduction/function/AppBackground.dart';
 import 'package:loginproduction/function/LoginScreen.dart';
 import 'package:loginproduction/function/header.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(
+    firebaseMessagingBackgroundHandler,
+  );
   runApp(const MyApp());
 }
+
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(
+    RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
+
+
  class MyApp extends StatefulWidget {
    const MyApp({super.key});
  
