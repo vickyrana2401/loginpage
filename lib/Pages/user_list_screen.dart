@@ -33,7 +33,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
 
               await FirebaseAuth.instance.signOut();
               if (!mounted) return;
-              Navigator.pop(context);
+              Navigator.pop(this.context);
             },
           )
         ],

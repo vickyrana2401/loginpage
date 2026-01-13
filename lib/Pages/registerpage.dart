@@ -1,8 +1,9 @@
+
 import "package:firebase_auth/firebase_auth.dart";
 import "package:firebase_database/firebase_database.dart";
 import "package:flutter/material.dart";
-import "package:loginproduction/function/AppBackground.dart";
-import "../function/AppToast.dart";
+import "package:loginproduction/function/appbackground.dart";
+import "../function/apptoast.dart";
 
 
 class RegisterPage extends StatefulWidget {

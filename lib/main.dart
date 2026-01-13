@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:loginproduction/function/AppBackground.dart';
-import 'package:loginproduction/function/LoginScreen.dart';
+import 'package:loginproduction/function/appbackground.dart';
+import 'package:loginproduction/function/loginscreen.dart';
 import 'package:loginproduction/function/header.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
