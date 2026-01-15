@@ -32,10 +32,11 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   String getChatId(String uid1, String uid2) {
-    return uid1.hashCode <= uid2.hashCode
+    return uid1.compareTo(uid2) < 0
         ? "${uid1}_$uid2"
         : "${uid2}_$uid1";
   }
+
 
   /// SEND MESSAGE
   void sendMessage() {
@@ -63,7 +64,17 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.receiverName),
-        backgroundColor: Colors.blue,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF2C5364),
+                Color(0xFF203A43),
+                Color(0xFF0F2027),
+              ],
+            ),
+          ),
+        ),
       ),
       body: Container(
           decoration: const BoxDecoration(
@@ -80,7 +91,6 @@ class _ChatScreenState extends State<ChatScreen> {
           child:SafeArea(
             child:Column(
         children: [
-          /// 🔥 MESSAGES LIST
           Expanded(
             child: StreamBuilder<DatabaseEvent>(
               stream: _dbRef
@@ -146,10 +156,8 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
 
-          /// ✍ MESSAGE INPUT
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-            color: Colors.grey.shade200,
             child: Row(
               children: [
                 Expanded(
@@ -168,7 +176,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 const SizedBox(width: 6),
                 CircleAvatar(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Color(0xFF203A42),
                   child: IconButton(
                     icon: const Icon(Icons.send, color: Colors.white),
                     onPressed: sendMessage,

@@ -5,11 +5,19 @@ import 'package:loginproduction/function/loginscreen.dart';
 import 'package:loginproduction/function/header.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+
+Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print("Background message: ${message.messageId}");
+}
 void main()  async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(
     firebaseMessagingBackgroundHandler,
+  );
+  FirebaseMessaging.onBackgroundMessage(
+    _firebaseBackgroundHandler,
   );
   runApp(const MyApp());
 }
@@ -18,6 +26,7 @@ void main()  async{
 Future<void> firebaseMessagingBackgroundHandler(
     RemoteMessage message) async {
   await Firebase.initializeApp();
+  print("Background message: ${message.messageId}");
 }
 
 

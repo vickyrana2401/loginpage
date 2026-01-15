@@ -8,6 +8,7 @@ class Header extends StatelessWidget {
     return
     Center(
     child:Column(
+
       children: [
         Icon(Icons.lock_outline,
             size: 72,

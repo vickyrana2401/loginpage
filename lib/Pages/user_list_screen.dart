@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'chat_screen.dart';
+import 'package:loginproduction/function/drawer.dart';
 
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({super.key});
@@ -21,23 +22,9 @@ class _UsersListScreenState extends State<UsersListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Users"),
-        backgroundColor: Colors.blueAccent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              // set offline on logout
-              await FirebaseDatabase.instance
-                  .ref("users/$myUid/online")
-                  .set(false);
-
-              await FirebaseAuth.instance.signOut();
-              if (!mounted) return;
-              Navigator.pop(this.context);
-            },
-          )
-        ],
+        backgroundColor: Color(0xFF203A42),
       ),
+        drawer:AppDrawer(),
       body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
