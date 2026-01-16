@@ -35,7 +35,6 @@ class AppDrawer extends StatelessWidget {
 
           return Column(
             children: [
-              /// 🔹 PROFILE HEADER
               UserAccountsDrawerHeader(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
@@ -53,7 +52,6 @@ class AppDrawer extends StatelessWidget {
                 accountEmail: Text(email),
               ),
 
-              /// 👤 PROFILE
               ListTile(
                 leading: const Icon(Icons.person),
                 title: const Text("Profile"),
@@ -61,8 +59,6 @@ class AppDrawer extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-
-              /// ⚙️ SETTINGS
               ListTile(
                 leading: const Icon(Icons.settings),
                 title: const Text("Settings"),
@@ -70,10 +66,12 @@ class AppDrawer extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
+              const Spacer(),
+              const Divider(
+                color: Colors.black,
+                thickness: 1,
+              ),
 
-              const Divider(),
-
-              /// 🚪 LOGOUT
               ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
                 title: const Text(
@@ -92,7 +90,7 @@ class AppDrawer extends StatelessWidget {
 
                   Navigator.pushNamedAndRemoveUntil(
                     context,
-                    "/login",
+                    "/",
                         (route) => false,
                   );
                 },

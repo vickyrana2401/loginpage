@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:loginproduction/Pages/loginsuccessful.dart';
-import 'package:loginproduction/Pages/registerpage.dart';
-
+import 'package:loginproduction/function/header.dart';
+import 'appbackground.dart';
 import 'apptoast.dart';
 
 
@@ -47,10 +46,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return MaterialApp(
+        debugShowCheckedModeBanner:false,
+        home:Scaffold( backgroundColor: Colors.white,
+            body:AppBackground(
+                          child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //Email
+                    Header(),
+                    SizedBox(height: 6),
+              SizedBox(height: 40),
               TextField(
                 controller: emailController,
                 keyboardType:TextInputType.emailAddress,
@@ -96,10 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       bool success= await login();
                       if (!context.mounted) return;
                       if( success){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context)=> LoginSuccessful())
-                        );
+                        Navigator.pushNamed(context,'/logins');
                       }
 
                     } ,
@@ -120,11 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text("Don’t have an account?"),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context)=> RegisterPage())
-                      );
-
+                      Navigator.pushNamed(context, '/register');
                     },
                     child: const Text("Register"),
                   ),
@@ -136,7 +134,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
               ),
             ],
+                          )
 
+                )
+            )
     );
   }
 }

@@ -19,13 +19,40 @@ class _UsersListScreenState extends State<UsersListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PopScope(
+        canPop: false, // We handle the pop action ourselves
+        onPopInvokedWithResult: (didPop,result) async {
+          // Show a logout confirmation dialog
+          final shouldLogout = await showDialog<bool>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Logout Confirmation'),
+              content: const Text('Do you really want to logout?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false), // User canceled logout
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true), // User confirmed logout
+                  child: const Text('Logout'),
+                ),
+              ],
+            ),
+          ) ?? false; // Default to false if dialog is dismissed
+
+          if (shouldLogout) {
+            // If the user confirmed, navigate back to the login screen
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          }
+        },
+        child: Scaffold(
       appBar: AppBar(
         title: const Text("Users"),
         backgroundColor: Color(0xFF203A42),
       ),
-        drawer:AppDrawer(),
-      body: Container(
+        drawer:SafeArea(child:AppDrawer()),
+       body: SafeArea(child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -114,6 +141,8 @@ class _UsersListScreenState extends State<UsersListScreen> {
       ),
       )
       )
+      )
+        )
     );
   }
 }
