@@ -7,7 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print("Background message: ${message.messageId}");
+  debugPrint("Background message: ${message.messageId}");
 }
 
 void main() async {
@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginScreen(), // Your initial route is the login screen wrapped in AppBackground
-        '/register': (context) => RegisterPage(), // Define your register screen here
+        '/': (context) => LoginScreen(),
+        '/register': (context) => RegisterPage(),
         '/logins':(context) => LoginSuccessful(),
       },
     );

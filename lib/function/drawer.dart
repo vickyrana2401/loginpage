@@ -87,7 +87,7 @@ class AppDrawer extends StatelessWidget {
                       .set(false);
 
                   await FirebaseAuth.instance.signOut();
-
+                  if (!context.mounted) return;
                   Navigator.pushNamedAndRemoveUntil(
                     context,
                     "/",

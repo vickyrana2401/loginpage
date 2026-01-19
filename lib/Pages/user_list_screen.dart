@@ -20,12 +20,12 @@ class _UsersListScreenState extends State<UsersListScreen> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-        canPop: false, // We handle the pop action ourselves
+        canPop: false,
         onPopInvokedWithResult: (didPop,result) async {
-          // Show a logout confirmation dialog
           final shouldLogout = await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog(
+              backgroundColor:Colors.deepPurple,
               title: const Text('Logout Confirmation'),
               content: const Text('Do you really want to logout?'),
               actions: [
@@ -39,10 +39,10 @@ class _UsersListScreenState extends State<UsersListScreen> {
                 ),
               ],
             ),
-          ) ?? false; // Default to false if dialog is dismissed
+          ) ?? false;
 
           if (shouldLogout) {
-            // If the user confirmed, navigate back to the login screen
+            if (!context.mounted) return;
             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           }
         },
