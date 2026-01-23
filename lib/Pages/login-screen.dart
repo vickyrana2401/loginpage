@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loginproduction/function/header.dart';
-import 'appbackground.dart';
-import 'apptoast.dart';
+import '../function/background.dart';
+import '../function/apptoast.dart';
 
 
 class LoginScreen extends StatefulWidget {

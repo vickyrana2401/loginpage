@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:loginproduction/Pages/loginsuccessful.dart';
-import 'package:loginproduction/Pages/registerpage.dart';
-import 'package:loginproduction/function/loginscreen.dart';
+import 'package:loginproduction/Pages/login-successful.dart';
+import 'package:loginproduction/Pages/register.dart';
+import 'package:loginproduction/Pages/login-screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
