@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:loginproduction/Pages/forgotpage.dart';
 import 'package:loginproduction/Pages/login-successful.dart';
 import 'package:loginproduction/Pages/register.dart';
 import 'package:loginproduction/Pages/login-screen.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoginScreen(),
         '/register': (context) => RegisterPage(),
         '/logins':(context) => LoginSuccessful(),
+        '/forgot':(context) => ForgotPasswordScreen()
       },
     );
   }
