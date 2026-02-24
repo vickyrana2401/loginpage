@@ -91,6 +91,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     )
                 ),
               ),
+              const SizedBox(height: 5),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forgot');
+                },
+                child: const Text("Forgot password"),
+              ),
               const SizedBox(height: 30),
 
               SizedBox(
@@ -116,6 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 20),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
